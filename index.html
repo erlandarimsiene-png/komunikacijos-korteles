@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="lt">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Komunikacijos kortelės</title>
 
   <style>
@@ -12,306 +12,268 @@
 
     body {
       margin: 0;
+      min-height: 100vh;
       font-family: Arial, sans-serif;
-      background: #f7f4ff;
+      background: #f6f2ff;
       color: #222;
       text-align: center;
     }
 
-    header {
-      padding: 30px 20px 15px;
+    /* PRADŽIOS LANGAS */
+    #startScreen {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 30px 20px;
     }
 
     h1 {
-      margin: 0;
-      font-size: 38px;
-      color: #5f4b8b;
+      margin: 0 0 45px;
+      font-size: 42px;
+      color: #5d4b8a;
     }
 
-    .intro {
-      margin-top: 10px;
-      font-size: 20px;
-      color: #555;
-    }
-
-    .menu {
+    .category-buttons {
+      width: 100%;
+      max-width: 700px;
       display: flex;
-      justify-content: center;
+      flex-direction: column;
       gap: 25px;
-      flex-wrap: wrap;
-      padding: 35px 20px;
     }
 
-    .menu button {
-      min-width: 280px;
+    .category-button {
+      width: 100%;
       min-height: 110px;
-      padding: 20px 30px;
       border: none;
       border-radius: 25px;
-      background: #9b83d7;
+      background: #9c86d8;
       color: white;
-      font-size: 28px;
+      font-size: 30px;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 5px 12px rgba(0, 0, 0, 0.14);
+    }
+
+    .category-button:hover {
+      background: #846dc5;
+    }
+
+    /* KORTELĖS LANGAS */
+    #cardScreen {
+      display: none;
+      min-height: 100vh;
+      padding: 25px 20px;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    #cardImage {
+      display: block;
+      width: auto;
+      max-width: 92%;
+      max-height: 72vh;
+      object-fit: contain;
+      margin: 0 auto 25px;
+      border-radius: 22px;
+      box-shadow: 0 5px 18px rgba(0, 0, 0, 0.15);
+    }
+
+    .navigation {
+      display: flex;
+      justify-content: center;
+      gap: 18px;
+      flex-wrap: wrap;
+    }
+
+    .nav-button {
+      min-width: 170px;
+      padding: 17px 28px;
+      border: none;
+      border-radius: 18px;
+      background: #9c86d8;
+      color: white;
+      font-size: 24px;
       font-weight: bold;
       cursor: pointer;
     }
 
-    .menu button:hover {
-      background: #8069c2;
-    }
-
-    .section {
-      display: none;
-      padding: 10px 20px 40px;
-    }
-
-    .section h2 {
-      font-size: 34px;
-      color: #5f4b8b;
-      margin-bottom: 25px;
+    .nav-button:hover {
+      background: #846dc5;
     }
 
     .back-button {
-      margin-bottom: 20px;
-      padding: 14px 24px;
-      border: none;
-      border-radius: 16px;
       background: #6f6f6f;
-      color: white;
-      font-size: 21px;
-      font-weight: bold;
-      cursor: pointer;
     }
 
-    .cards {
-      max-width: 1300px;
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 24px;
+    .back-button:hover {
+      background: #555;
     }
 
-    .card {
-      background: white;
-      border: 5px solid #b6a2e4;
-      border-radius: 25px;
-      padding: 12px;
-      box-shadow: 0 5px 14px rgba(0,0,0,0.12);
-    }
-
-    .card img {
-      width: 100%;
-      height: auto;
-      display: block;
-      border-radius: 18px;
-    }
-
-    .card p {
-      margin: 12px 5px 5px;
-      font-size: 24px;
-      font-weight: bold;
-      color: #333;
-    }
-
+    /* TELEFONAMS IR PLANŠETĖMS */
     @media (max-width: 650px) {
       h1 {
-        font-size: 30px;
+        font-size: 32px;
+        margin-bottom: 35px;
       }
 
-      .menu button {
+      .category-button {
+        min-height: 95px;
+        font-size: 26px;
+      }
+
+      #cardScreen {
+        padding: 15px 10px;
+      }
+
+      #cardImage {
+        max-width: 100%;
+        max-height: 68vh;
+      }
+
+      .navigation {
         width: 100%;
-        min-width: 0;
-        font-size: 25px;
       }
 
-      .cards {
-        grid-template-columns: 1fr;
-      }
-
-      .card p {
-        font-size: 22px;
+      .nav-button {
+        flex: 1;
+        min-width: 135px;
+        font-size: 21px;
+        padding: 16px 18px;
       }
     }
   </style>
 </head>
 
 <body>
-
-  <header>
+  <!-- PRADŽIOS LANGAS -->
+  <div id="startScreen">
     <h1>Komunikacijos kortelės</h1>
-    <div class="intro">Pasirink kortelių grupę</div>
-  </header>
 
-  <div id="mainMenu" class="menu">
-    <button onclick="showSection('skauda')">Ką man skauda?</button>
-    <button onclick="showSection('poreikiai')">Mano poreikiai</button>
+    <div class="category-buttons">
+      <button
+        class="category-button"
+        onclick="openCategory('skauda')"
+      >
+        Ką man skauda?
+      </button>
+
+      <button
+        class="category-button"
+        onclick="openCategory('poreikiai')"
+      >
+        Mano poreikiai
+      </button>
+    </div>
   </div>
 
+  <!-- KORTELĖS LANGAS -->
+  <div id="cardScreen">
+    <img
+      id="cardImage"
+      src=""
+      alt="Komunikacijos kortelė"
+    />
 
-  <!-- KĄ MAN SKAUDA -->
-  <section id="skauda" class="section">
+    <div class="navigation">
+      <button
+        class="nav-button"
+        onclick="nextCard()"
+      >
+        Kita →
+      </button>
 
-    <button class="back-button" onclick="goBack()">← Grįžti</button>
-
-    <h2>Ką man skauda?</h2>
-
-    <div class="cards">
-
-      <div class="card">
-        <img src="man-skauda-galva.png" alt="Man skauda galvą">
-        <p>Man skauda galvą</p>
-      </div>
-
-      <div class="card">
-        <img src="man-skauda-ausi.png" alt="Man skauda ausį">
-        <p>Man skauda ausį</p>
-      </div>
-
-      <div class="card">
-        <img src="man-skauda-gerkle.png" alt="Man skauda gerklę">
-        <p>Man skauda gerklę</p>
-      </div>
-
-      <div class="card">
-        <img src="man-skauda-aki.png" alt="Man skauda akį">
-        <p>Man skauda akį</p>
-      </div>
-
-      <div class="card">
-        <img src="man-skauda-nosi.png" alt="Man skauda nosį">
-        <p>Man skauda nosį</p>
-      </div>
-
-      <div class="card">
-        <img src="man-skauda-pilva.png" alt="Man skauda pilvą">
-        <p>Man skauda pilvą</p>
-      </div>
-
-      <div class="card">
-        <img src="man-skauda-koja.png" alt="Man skauda koją">
-        <p>Man skauda koją</p>
-      </div>
-
-      <div class="card">
-        <img src="man-skauda-ranka.png" alt="Man skauda ranką">
-        <p>Man skauda ranką</p>
-      </div>
-
-      <div class="card">
-        <img src="man-skauda-nugara.png" alt="Man skauda nugarą">
-        <p>Man skauda nugarą</p>
-      </div>
-
-      <div class="card">
-        <img src="man-skauda-pirsta.png" alt="Man skauda pirštą">
-        <p>Man skauda pirštą</p>
-      </div>
-
-      <div class="card">
-        <img src="man-skauda-peti.png" alt="Man skauda petį">
-        <p>Man skauda petį</p>
-      </div>
-
+      <button
+        class="nav-button back-button"
+        onclick="backToStart()"
+      >
+        ← Grįžti
+      </button>
     </div>
-  </section>
-
-
-  <!-- MANO POREIKIAI -->
-  <section id="poreikiai" class="section">
-
-    <button class="back-button" onclick="goBack()">← Grįžti</button>
-
-    <h2>Mano poreikiai</h2>
-
-    <div class="cards">
-
-      <div class="card">
-        <img src="as-noriu-valgyti.png" alt="Aš noriu valgyti">
-        <p>Aš noriu valgyti</p>
-      </div>
-
-      <div class="card">
-        <img src="as-noriu-gerti.png" alt="Aš noriu gerti">
-        <p>Aš noriu gerti</p>
-      </div>
-
-      <div class="card">
-        <img src="as-noriu-i-tualeta.png" alt="Aš noriu į tualetą">
-        <p>Aš noriu į tualetą</p>
-      </div>
-
-      <div class="card">
-        <img src="as-noriu-i-lauka.png" alt="Aš noriu į lauką">
-        <p>Aš noriu į lauką</p>
-      </div>
-
-      <div class="card">
-        <img src="as-noriu-i-koridoriu.png" alt="Aš noriu į koridorių">
-        <p>Aš noriu į koridorių</p>
-      </div>
-
-      <div class="card">
-        <img src="as-noriu-zaisti.png" alt="Aš noriu žaisti">
-        <p>Aš noriu žaisti</p>
-      </div>
-
-      <div class="card">
-        <img src="as-noriu-namo.png" alt="Aš noriu namo">
-        <p>Aš noriu namo</p>
-      </div>
-
-      <div class="card">
-        <img src="as-noriu-miego.png" alt="Aš noriu miego">
-        <p>Aš noriu miego</p>
-      </div>
-
-      <div class="card">
-        <img src="as-noriu-atsisesti.png" alt="Aš noriu atsisėsti">
-        <p>Aš noriu atsisėsti</p>
-      </div>
-
-      <div class="card">
-        <img src="as-noriu-atsistoti.png" alt="Aš noriu atsistoti">
-        <p>Aš noriu atsistoti</p>
-      </div>
-
-      <div class="card">
-        <img src="as-noriu-pabegioti.png" alt="Aš noriu pabėgioti">
-        <p>Aš noriu pabėgioti</p>
-      </div>
-
-      <div class="card">
-        <img src="as-noriu-vemti.png" alt="Aš noriu vemti">
-        <p>Aš noriu vemti</p>
-      </div>
-
-      <div class="card">
-        <img src="as-noriu-issipusti-nosi.png" alt="Aš noriu išsipūsti nosį">
-        <p>Aš noriu išsipūsti nosį</p>
-      </div>
-
-    </div>
-  </section>
-
+  </div>
 
   <script>
-    function showSection(sectionId) {
-      document.getElementById("mainMenu").style.display = "none";
-      document.getElementById("skauda").style.display = "none";
-      document.getElementById("poreikiai").style.display = "none";
+    /* KORTELĖS „KĄ MAN SKAUDA?“ */
+    const skaudaCards = [
+      "man-skauda-galva.png",
+      "man-skauda-ausi.png",
+      "man-skauda-gerkle.png",
+      "man-skauda-aki.png",
+      "man-skauda-nosi.png",
+      "man-skauda-pilva.png",
+      "man-skauda-koja.png",
+      "man-skauda-ranka.png",
+      "man-skauda-nugara.png",
+      "man-skauda-pirsta.png",
+      "man-skauda-peti.png"
+    ];
 
-      document.getElementById(sectionId).style.display = "block";
+    /* KORTELĖS „MANO POREIKIAI“ */
+    const poreikiaiCards = [
+      "as-noriu-valgyti.png",
+      "as-noriu-gerti.png",
+      "as-noriu-i-tualeta.png",
+      "as-noriu-i-lauka.png",
+      "as-noriu-i-koridoriu.png",
+      "as-noriu-zaisti.png",
+      "as-noriu-namo.png",
+      "as-noriu-miego.png",
+      "as-noriu-atsisesti.png",
+      "as-noriu-atsistoti.png",
+      "as-noriu-pabegioti.png",
+      "as-noriu-vemti.png",
+      "as-noriu-issipusti-nosi.png"
+    ];
 
-      window.scrollTo(0, 0);
+    let currentCards = [];
+    let currentIndex = 0;
+
+    /* PASIRENKAME KATEGORIJĄ */
+    function openCategory(category) {
+      if (category === "skauda") {
+        currentCards = skaudaCards;
+      }
+
+      if (category === "poreikiai") {
+        currentCards = poreikiaiCards;
+      }
+
+      currentIndex = 0;
+
+      document.getElementById("startScreen").style.display = "none";
+      document.getElementById("cardScreen").style.display = "flex";
+
+      showCurrentCard();
     }
 
-    function goBack() {
-      document.getElementById("skauda").style.display = "none";
-      document.getElementById("poreikiai").style.display = "none";
-      document.getElementById("mainMenu").style.display = "flex";
+    /* PARODOME DABARTINĘ KORTELĘ */
+    function showCurrentCard() {
+      const image = document.getElementById("cardImage");
 
-      window.scrollTo(0, 0);
+      image.src = currentCards[currentIndex];
+    }
+
+    /* KITA KORTELĖ */
+    function nextCard() {
+      currentIndex++;
+
+      if (currentIndex >= currentCards.length) {
+        currentIndex = 0;
+      }
+
+      showCurrentCard();
+    }
+
+    /* GRĮŽTAME Į PRADŽIĄ */
+    function backToStart() {
+      document.getElementById("cardScreen").style.display = "none";
+      document.getElementById("startScreen").style.display = "flex";
+
+      currentCards = [];
+      currentIndex = 0;
     }
   </script>
-
 </body>
 </html>
